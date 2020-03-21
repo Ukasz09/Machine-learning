@@ -1,8 +1,5 @@
 # 🤖 Machine learning [![License](https://img.shields.io/badge/licence-MIT-blue)](https://choosealicense.com/licenses/mit/) [![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)](https://github.com/Ukasz09/Machine-learning) [![Status](https://img.shields.io/badge/status-work--in--progress-yellow)](https://github.com/Ukasz09/Machine-learning)
 
-Some various exercises in the field of machine learning
-
-# Exercises
 - ✔️ Linear regression
 ___
 ## 📫 Contact 
