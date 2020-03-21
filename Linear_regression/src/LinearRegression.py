@@ -52,9 +52,8 @@ def print_result(points_qty):
     plt.ylim(min(y) - 1, max(y) + 1)
     draw_plot(x, y, 'b x')
     draw_plot(x, y_apr, 'r')
-    plt.title("Q=sume(|e|) - numerical")
+    plt.title("Q=1/N sume(|e|) - numerical")
     plt.show()
-
 
 print_result(100)
 exit(0)

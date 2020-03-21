@@ -5,5 +5,5 @@
 
 ### Run
 ```python
-python LinearRegression.py
+python3 LinearRegression.py
 ```
