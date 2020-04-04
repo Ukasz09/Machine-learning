@@ -2,13 +2,17 @@ import matplotlib.pyplot as plt
 import numpy as np
 import random as rand
 from itertools import combinations
+import matplotlib.patches as mpatches
 
 PLOT_ROWS = 3
 PLOT_CELLS = 2
 DATA_MIN_VAL = 0.5
 DATA_MAX_VAL = 1
 DEV_LINE_FUNC = 0.3  # deviation from line function
-fig, ax = plt.subplots(nrows=PLOT_ROWS, ncols=PLOT_CELLS, figsize=(10, 10))
+fig, ax = plt.subplots(nrows=PLOT_ROWS, ncols=PLOT_CELLS, figsize=(15, 15))
+fig.suptitle("Data model matching using mean square error", fontsize=16)
+orange_patch = mpatches.Patch(color='orange', label='Model deviated')
+black_patch = mpatches.Patch(color='black', label='Correct model')
 
 
 # -------------------------------------------------------------------------------------------------------------------- #
@@ -26,7 +30,7 @@ def get_random_data(points_qty=10) -> (np.array, np.array):
 
 
 def plot_result_cell(started_data, degree, plot_x_vals, plot_row, plot_col):
-    ax[plot_row][plot_col].set_ylim(0, DATA_MAX_VAL + DEV_LINE_FUNC)
+    ax[plot_row][plot_col].set_ylim(-0.5, (DATA_MAX_VAL + DEV_LINE_FUNC) * 1.5)
 
     # plot debased model
     debased_data = data_debased_by_2_param(started_data[0], started_data[1])
@@ -47,10 +51,11 @@ def plot_result_cell(started_data, degree, plot_x_vals, plot_row, plot_col):
     qa = calculate_Qa(started_data[0], started_data[1], degree)
 
     # plot labels
-    quantity_title = "Parameters quantity: " + (degree + 1).__str__()
+    quantity_title = "\n\n\n\nParameters quantity: " + (degree + 1).__str__()
     quality_title = "Quality assurance (Qa): " + round(qa, 6).__str__()
     title = quantity_title + "\n" + quality_title
     ax[plot_row][plot_col].set_title(title)
+    ax[plot_row][plot_col].legend(handles=[orange_patch, black_patch])
 
 
 def plot_compare_results(started_data):
