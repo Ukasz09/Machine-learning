@@ -35,7 +35,7 @@ def plot_result_cell(start_data, degree, plot_x_vals, plot_row, plot_col, lambda
     debased_data = data_debased_by_2_param(start_data[0], start_data[1])
     for deb_data in debased_data:
         if lambdas is not None:
-            param = calculate_min_param_for_regularized(deb_data, degree, lambdas)
+            param, _ = calculate_min_param_for_regularized(deb_data, degree, lambdas)
         else:
             param, _ = least_squares(deb_data[0], deb_data[1], degree)
         y = polynomial(plot_x_vals, param)
@@ -43,7 +43,7 @@ def plot_result_cell(start_data, degree, plot_x_vals, plot_row, plot_col, lambda
 
     # plot correct model
     if lambdas is not None:
-        param = calculate_min_param_for_regularized(start_data, degree, lambdas)
+        param, lamb = calculate_min_param_for_regularized(start_data, degree, lambdas)
     else:
         param, _ = least_squares(start_data[0], start_data[1], degree)
     y = polynomial(plot_x_vals, param)
@@ -52,13 +52,17 @@ def plot_result_cell(start_data, degree, plot_x_vals, plot_row, plot_col, lambda
     # plot points
     ax[plot_row][plot_col].plot(start_data[0], start_data[1], "b o")
 
-    # calculate quality assurance and euclidean domain
-    qa = calculate_Qa(start_data[0], start_data[1], degree)
-
+    # calculate quality assurance and euclidean domain\
+    if lambdas is None:
+        qa = calculate_Qa(start_data[0], start_data[1], degree)
+        lambdas_title = ""
+    else:
+        qa = calculate_Qa_regularization(start_data[0], start_data[1], degree, lamb)
+        lambdas_title = "$\lambda$= " + lamb.__str__()
     # plot labels
     quantity_title = "\n\n\n\nParameters quantity: " + (degree + 1).__str__()
     quality_title = "Quality assurance (Qa): " + round(qa, 6).__str__()
-    title = quantity_title + "\n" + quality_title
+    title = quantity_title + "\n" + quality_title + "\n" + lambdas_title
     ax[plot_row][plot_col].set_title(title)
     ax[plot_row][plot_col].legend(handles=[orange_patch, black_patch])
 
@@ -84,6 +88,13 @@ def calculate_Qa(data_x, data_y, degree):
     Y = data_y.transpose()
     a, _ = least_squares(data_x, data_y, degree)
     return ((Y - a.transpose() @ X) @ (Y - a.transpose() @ X).transpose())[0][0]
+
+
+def calculate_Qa_regularization(data_x, data_y, degree, lamb):
+    X = design_matrix(data_x, degree).transpose()
+    Y = data_y.transpose()
+    a, _ = regularized_least_squares(data_x, data_y, degree, lamb)
+    return ((Y - a.transpose() @ X) @ (Y - a.transpose() @ X).transpose() + lamb * (a.transpose() @ a))[0][0]
 
 
 def polynomial(x, w):
@@ -117,11 +128,14 @@ def calculate_min_param_for_regularized(data, degree, lambdas):
     param_err = [regularized_least_squares(data[0], data[1], degree, lamb) for lamb in lambdas]
     min_err = param_err[0][1]
     param = param_err[0][0]
-    for tup in param_err:
+    best_lambda = lambdas[0]
+    for i in range(len(param_err)):
+        tup = param_err[i]
         if tup[1] < min_err:
             min_err = tup[1]
             param = tup[0]
-    return param
+            best_lambda = lambdas[i]
+    return param, best_lambda
 
 
 def data_debased_by_2_param(x_data, y_data):
@@ -137,12 +151,17 @@ def data_debased_by_2_param(x_data, y_data):
 
 
 # -------------------------------------------------------------------------------------------------------------------- #
+def get_random_lambdas():
+    lambdas_helper = rand.sample(range(10, 90), 20)
+    lambdas = [len(lambdas_helper)]
+    for i in range(len(lambdas)):
+        lambdas[i] = lambdas_helper[i] * 1e-13
+    return lambdas
+
+
 if __name__ == "__main__":
     data = get_random_data()
-    lambdas = [1e-29, 5e-29, 1e-23, 5e-23, 1e-27, 5e-27, 1e-22, 5e-22, 1e-25, 5e-25, 1e-21, 5e-21, 1e-23, 5e-23, 1e-20,
-               5e-20, 1e-21, 5e-21, 1e-19, 5e-19, 1e-19, 5e-19, 1e-18, 5e-18, 1e-17, 5e-17, 1e-16, 5e-16, 1e-15, 5e-15,
-               1e-14, 5e-14, 1e-13, 5e-13, 1e-12, 5e-12, 1e-11, 5e-11, 1e-10, 5e-10, 1e-09, 5e-09, 1e-08, 5e-08]
-    plot_compare_results(data)
-    # plot_compare_results(data, lambdas) # with regularization
+    # plot_compare_results(data)
+    plot_compare_results(data, get_random_lambdas())  # with regularization
     plt.show()
     exit(0)
