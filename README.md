@@ -1,6 +1,11 @@
 # 🤖 Machine learning [![License](https://img.shields.io/badge/licence-MIT-blue)](https://choosealicense.com/licenses/mit/) [![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)](https://github.com/Ukasz09/Machine-learning) [![Status](https://img.shields.io/badge/status-work--in--progress-yellow)](https://github.com/Ukasz09/Machine-learning)
 
-- ✔️ Linear regression
+- ✔️ Linear regression 
+- ✔️ Data model matching using mean square error (in matrixes notation)
+
+## How to see results ?
+Go to folder with topic you want to see and click on file `Report.ipynb` (jupyter notebook) <br/>
+You will see generated models with code  
 ___
 ## 📫 Contact 
 Created by <br/>
