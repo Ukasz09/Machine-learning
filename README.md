@@ -2,6 +2,7 @@
 
 - ✔️ Linear regression 
 - ✔️ Data model matching using mean square error (in matrixes notation)
+- ✔️ SIR Model for Spread of Disease (minimalized to two and one equation)
 
 ## How to see results ?
 Go to folder with topic you want to see and click on file `Report.ipynb` (jupyter notebook) <br/>
