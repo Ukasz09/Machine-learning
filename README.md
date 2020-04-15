@@ -7,6 +7,13 @@
 ## How to see results ?
 Go to folder with topic you want to see and click on file `Report.ipynb` (jupyter notebook) <br/>
 You will see generated models with code  
+
+## Technologies
+- :small_orange_diamond: python 3.7
+  - matplotlib library
+  - numpy library
+- :small_orange_diamond: JupyterNotebook
+  - LaTeX
 ___
 ## 📫 Contact 
 Created by <br/>
