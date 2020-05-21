@@ -1,4 +1,4 @@
-# 🤖 Machine learning [![License](https://img.shields.io/badge/licence-MIT-blue)](https://choosealicense.com/licenses/mit/) [![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)](https://github.com/Ukasz09/Machine-learning) [![Status](https://img.shields.io/badge/status-work--in--progress-yellow)](https://github.com/Ukasz09/Machine-learning)
+# 🤖 Machine learning [![License](https://img.shields.io/badge/licence-MIT-blue)](https://choosealicense.com/licenses/mit/) 
 
 - ✔️ Linear regression 
 - ✔️ Data model matching using mean square error (in matrixes notation)
@@ -13,7 +13,7 @@ You will see generated models with code
   - matplotlib library
   - numpy library
 - :small_orange_diamond: JupyterNotebook
-  - LaTeX
+  - LaTeX, markdowns
 ___
 ## 📫 Contact 
 Created by <br/>
